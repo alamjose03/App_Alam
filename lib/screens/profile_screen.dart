@@ -12,6 +12,7 @@ class ProfileScreen extends StatelessWidget {
       child: Scaffold(
         appBar: _appBar(context),
         body: _ProfileScreenBody(),
+        bottomNavigationBar: ButtonOut(),
       ),
     );
   }
@@ -44,12 +45,12 @@ class _ProfileScreenBody extends StatelessWidget {
   Widget build(BuildContext context) {
     final Responsive responsive = Responsive.of(context);
     return SingleChildScrollView(
-        child: Column(
-      children: [
-        ProfileBodyWidget(),
-        SizedBox(height: responsive.dp(5)),
-        ButtonOut(),
-      ],
-    ));
+      child: Column(
+        children: [
+          ProfileBodyWidget(),
+          // ButtonOut(),
+        ],
+      ),
+    );
   }
 }

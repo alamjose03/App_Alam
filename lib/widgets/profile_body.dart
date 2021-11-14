@@ -134,11 +134,6 @@ class _NotificationData extends StatelessWidget {
           trailing: Icon(Icons.arrow_forward_ios),
         ),
         _ListTile(
-          icon: Icons.auto_stories_outlined,
-          text: 'Actividades a realizar',
-          trailing: _ButtonActivities(),
-        ),
-        _ListTile(
           icon: Icons.watch_later_outlined,
           text: 'Tiempo de estudios',
           trailing: _ButtonStudy(),
@@ -206,73 +201,28 @@ class ButtonOut extends StatelessWidget {
   }
 }
 
-class _ButtonActivities extends StatefulWidget {
-  const _ButtonActivities({Key? key}) : super(key: key);
-
-  @override
-  __ButtonActivitiesState createState() => __ButtonActivitiesState();
-}
-
-class __ButtonActivitiesState extends State<_ButtonActivities> {
-  bool _isActivity = true;
-  @override
-  Widget build(BuildContext context) {
-    return CupertinoSwitch(
-      value: _isActivity,
-      onChanged: (value) {
-        setState(() {
-          _isActivity = value;
-        });
-        print('$value  actividades');
-      },
-      activeColor: magentaColor,
-    );
-  }
-}
-
-class _ButtonStudy extends StatefulWidget {
+class _ButtonStudy extends StatelessWidget {
   const _ButtonStudy({Key? key}) : super(key: key);
-
-  @override
-  __ButtonStudyState createState() => __ButtonStudyState();
-}
-
-class __ButtonStudyState extends State<_ButtonStudy> {
-  bool _isStudy = true;
   @override
   Widget build(BuildContext context) {
+    bool _isStudy = true;
     return CupertinoSwitch(
       value: _isStudy,
-      onChanged: (value) {
-        setState(() {
-          _isStudy = value;
-        });
-        print('$value  estudio');
-      },
+      onChanged: (value) {},
       activeColor: magentaColor,
     );
   }
 }
 
-class _ButtonEvaluation extends StatefulWidget {
+class _ButtonEvaluation extends StatelessWidget {
   const _ButtonEvaluation({Key? key}) : super(key: key);
 
   @override
-  __ButtonEvaluationState createState() => __ButtonEvaluationState();
-}
-
-class __ButtonEvaluationState extends State<_ButtonEvaluation> {
-  bool _isEvaluation = true;
-  @override
   Widget build(BuildContext context) {
+    bool _isEvaluation = true;
     return CupertinoSwitch(
       value: _isEvaluation,
-      onChanged: (value) {
-        setState(() {
-          _isEvaluation = value;
-        });
-        print('$value  evaluación');
-      },
+      onChanged: (value) {},
       activeColor: magentaColor,
     );
   }
