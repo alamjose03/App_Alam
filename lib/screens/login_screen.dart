@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:bellma/screens/screens.dart';
+import 'package:provider/provider.dart';
+import 'package:bellma/providers/providers.dart';
 import 'package:bellma/responsive.dart';
 import 'package:bellma/constants/colors_constant.dart';
 import 'package:bellma/widgets/widgets.dart';
@@ -17,6 +18,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     final Responsive responsive = Responsive.of(context);
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Stack(
         children: [
           LoginBackgroundWidget(
@@ -53,6 +55,27 @@ class _LoginScreenState extends State<LoginScreen> {
           // _LoginForm(),
         ],
       ),
+      bottomNavigationBar: _development(),
+    );
+  }
+
+  Widget _development() {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            'Power By ',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          Image(
+            image: AssetImage('assets/img/LogoUnivelmas.png'),
+            width: 65.0,
+            fit: BoxFit.cover,
+          ),
+        ],
+      ),
     );
   }
 }
@@ -67,10 +90,13 @@ class __LoginFormState extends State<_LoginForm> {
 
   @override
   Widget build(BuildContext context) {
-    final Responsive responsive = Responsive.of(context);
+    final loginForm = Provider.of<LoginFormProvider>(context);
+
     return Container(
       // El form tiene una referencia al estado de sus widgets internos
       child: Form(
+        key: loginForm.formKey,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 28.0),
           child: Column(
@@ -84,9 +110,19 @@ class __LoginFormState extends State<_LoginForm> {
                   labelText: "Correo electrónico",
                   prefixIcon: Icons.email_outlined,
                 ),
+                onChanged: (value) => loginForm.email = value,
+                validator: (value) {
+                  String pattern =
+                      r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+                  RegExp regExp = new RegExp(pattern);
+
+                  return regExp.hasMatch(value ?? '')
+                      ? null
+                      : 'El valor ingresado no luce como un correo';
+                },
                 cursorColor: magentaColor,
               ),
-              SizedBox(height: 20.0),
+              SizedBox(height: 10.0),
               TextFormField(
                 obscureText: _isHidden,
                 autocorrect: false,
@@ -105,9 +141,15 @@ class __LoginFormState extends State<_LoginForm> {
                     },
                   ),
                 ),
+                onChanged: (value) => loginForm.password = value,
+                validator: (value) {
+                  return (value != null && value.length >= 6)
+                      ? null
+                      : 'La contraseña debe de ser de 6 caracteres';
+                },
                 cursorColor: magentaColor,
               ),
-              SizedBox(height: 5.0),
+              SizedBox(height: 3.0),
               TextButton(
                 child: Row(
                   children: [
@@ -123,7 +165,7 @@ class __LoginFormState extends State<_LoginForm> {
                 ),
                 onPressed: () {},
               ),
-              SizedBox(height: 15.0),
+              SizedBox(height: 10.0),
               MaterialButton(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0),
@@ -143,11 +185,12 @@ class __LoginFormState extends State<_LoginForm> {
                   ),
                 ),
                 onPressed: () {
-                  Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+                  // Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+                  loginForm.isValidForm();
                 },
               ),
-              SizedBox(height: responsive.dp(15.0)),
-              _development(),
+              // SizedBox(height: responsive.dp(13.0)),
+              // _development(),
             ],
           ),
         ),
@@ -159,22 +202,5 @@ class __LoginFormState extends State<_LoginForm> {
     setState(() {
       _isHidden = !_isHidden;
     });
-  }
-
-  Widget _development() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(
-          'Power By ',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-        Image(
-          image: AssetImage('assets/img/LogoUnivelmas.png'),
-          width: 65.0,
-          fit: BoxFit.cover,
-        ),
-      ],
-    );
   }
 }

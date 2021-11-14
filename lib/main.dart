@@ -13,7 +13,8 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => UiProvider()),
-        ChangeNotifierProvider(create: (_) => InputDialogProvider())
+        ChangeNotifierProvider(create: (_) => InputDialogProvider()),
+        ChangeNotifierProvider(create: (_) => LoginFormProvider()),
       ],
       child: MaterialApp(
         title: 'BellMa App',
