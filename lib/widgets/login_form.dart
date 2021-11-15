@@ -1,7 +1,7 @@
+import 'package:bellma/providers/connection_status_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:bellma/ui/ui.dart';
-import 'package:bellma/screens/screens.dart';
 import 'package:bellma/providers/providers.dart';
 import 'package:bellma/constants/colors_constant.dart';
 
@@ -9,6 +9,7 @@ class LoginFormWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final loginForm = Provider.of<LoginFormProvider>(context);
+    final connectionP = Provider.of<ConnectionStatusProvider>(context);
 
     return Container(
       // El form tiene una referencia al estado de sus widgets internos
@@ -94,19 +95,26 @@ class LoginFormWidget extends StatelessWidget {
                 color: magentaColor,
                 child: Container(
                   padding:
-                      EdgeInsets.symmetric(horizontal: 125.0, vertical: 16.0),
+                      EdgeInsets.symmetric(horizontal: 100.0, vertical: 16.0),
                   child: Text(
                     'Iniciar Sesión',
                     style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
-                      fontSize: 18.0,
+                      fontSize: 16.0,
                     ),
                   ),
                 ),
-                onPressed: () {
-                  Navigator.pushReplacementNamed(context, HomeScreen.routeName);
-                  // loginForm.isValidForm();
+                onPressed: () async {
+                  await connectionP.checkInternetConnection();
+                  if (connectionP.isOnline) {
+                    loginForm.isValidForm();
+                    // Navigator.pushReplacementNamed(
+                    //     context, HomeScreen.routeName);
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Sin Conexión a Internet...')));
+                  }
                 },
               ),
               // SizedBox(height: responsive.dp(13.0)),

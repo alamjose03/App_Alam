@@ -1,3 +1,4 @@
+import 'package:bellma/providers/connection_status_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:bellma/providers/providers.dart';
@@ -15,6 +16,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => UiProvider()),
         ChangeNotifierProvider(create: (_) => InputDialogProvider()),
         ChangeNotifierProvider(create: (_) => LoginFormProvider()),
+        ChangeNotifierProvider(create: (_) => ConnectionStatusProvider()),
       ],
       child: MaterialApp(
         title: 'BellMa App',

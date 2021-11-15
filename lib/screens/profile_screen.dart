@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:bellma/responsive.dart';
 import 'package:bellma/screens/screens.dart';
 import 'package:bellma/widgets/profile_body.dart';
 import 'package:bellma/constants/colors_constant.dart';
@@ -43,7 +42,6 @@ class _ProfileScreenBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Responsive responsive = Responsive.of(context);
     return SingleChildScrollView(
       child: Column(
         children: [
