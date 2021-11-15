@@ -94,10 +94,11 @@ class LoginFormWidget extends StatelessWidget {
                 disabledColor: Colors.grey,
                 color: magentaColor,
                 child: Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 100.0, vertical: 16.0),
+                  width: double.infinity,
+                  alignment: Alignment.center,
+                  padding: EdgeInsets.symmetric(vertical: 16.0),
                   child: Text(
-                    'Iniciar Sesión',
+                    loginForm.isLoadingGet ? 'Espere...' : 'Iniciar Sesión',
                     style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
@@ -105,17 +106,27 @@ class LoginFormWidget extends StatelessWidget {
                     ),
                   ),
                 ),
-                onPressed: () async {
-                  await connectionP.checkInternetConnection();
-                  if (connectionP.isOnline) {
-                    loginForm.isValidForm();
-                    // Navigator.pushReplacementNamed(
-                    //     context, HomeScreen.routeName);
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Sin Conexión a Internet...')));
-                  }
-                },
+                onPressed: loginForm.isLoadingGet
+                    ? null
+                    : () async {
+                        FocusScope.of(context).unfocus();
+
+                        await connectionP.checkInternetConnection();
+                        if (connectionP.isOnline) {
+                          if (!loginForm.isValidForm()) return;
+
+                          loginForm.isLoadingSet = true;
+
+                          await Future.delayed(Duration(seconds: 5));
+
+                          loginForm.isLoadingSet = false;
+                          // Navigator.pushReplacementNamed(
+                          //     context, HomeScreen.routeName);
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: Text('Sin Conexión a Internet...')));
+                        }
+                      },
               ),
               // SizedBox(height: responsive.dp(13.0)),
               // _development(),

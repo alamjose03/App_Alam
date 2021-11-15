@@ -1,4 +1,5 @@
 import 'package:bellma/providers/connection_status_provider.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:bellma/providers/providers.dart';
@@ -6,7 +7,11 @@ import 'package:bellma/screens/screens.dart';
 import 'package:bellma/routes/route.dart';
 import 'package:bellma/providers/ui_provider.dart';
 
-void main() => runApp(MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override

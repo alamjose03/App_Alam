@@ -5,6 +5,14 @@ class LoginFormProvider extends ChangeNotifier {
   GlobalKey<FormState> formKey = new GlobalKey<FormState>();
 
   bool _isHidden = true;
+  bool _isLoading = false;
+
+  bool get isLoadingGet => _isLoading;
+
+  set isLoadingSet(bool value) {
+    _isLoading = value;
+    notifyListeners();
+  }
 
   // String que guardaran los datos ingresados en el form
   String email = '';
