@@ -1,4 +1,5 @@
 import 'package:bellma/providers/connection_status_provider.dart';
+import 'package:bellma/services/auth_service.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => InputDialogProvider()),
         ChangeNotifierProvider(create: (_) => LoginFormProvider()),
         ChangeNotifierProvider(create: (_) => ConnectionStatusProvider()),
+        ChangeNotifierProvider(create: (_) => AuthService()),
       ],
       child: MaterialApp(
         title: 'BellMa App',

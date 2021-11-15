@@ -1,6 +1,7 @@
 import 'package:bellma/constants/colors_constant.dart';
 import 'package:bellma/responsive.dart';
 import 'package:bellma/screens/screens.dart';
+import 'package:bellma/ui/global.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -25,6 +26,7 @@ class ImageProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user = Global.userModel;
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -35,8 +37,23 @@ class ImageProfile extends StatelessWidget {
             height: 80.0,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              image: DecorationImage(
-                image: AssetImage('assets/img/profile.png'),
+            ),
+            child: GestureDetector(
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(40.0),
+                child: FadeInImage(
+                  image: NetworkImage(user!.image),
+                  placeholder: AssetImage('assets/img/jar-loading.gif'),
+                  fit: BoxFit.cover,
+                  width: 60.0,
+                  height: 60.0,
+                ),
+              ),
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => DetailImageScreen(image: user.image),
+                ),
               ),
             ),
           ),
@@ -51,13 +68,15 @@ class EmailProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user = Global.userModel;
+
     final Responsive responsive = Responsive.of(context);
     return Padding(
       padding: EdgeInsets.only(bottom: 8.0),
       child: Column(
         children: [
           Text(
-            'Jessica Lambert',
+            user!.name,
             style: TextStyle(
               color: blackColor,
               fontWeight: FontWeight.bold,
@@ -65,8 +84,8 @@ class EmailProfile extends StatelessWidget {
             ),
           ),
           Text(
-            'jessicalambert@gmail.com',
-            style: TextStyle(fontSize: responsive.dp(1.5)),
+            user.email,
+            style: TextStyle(fontSize: responsive.dp(1.6)),
           ),
         ],
       ),

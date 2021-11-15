@@ -8,7 +8,7 @@ class CardStatisticsWidget extends StatelessWidget {
     final Responsive responsive = Responsive.of(context);
     return Container(
       width: double.infinity,
-      height: responsive.hp(35.0),
+      height: responsive.hp(30.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(25.0),

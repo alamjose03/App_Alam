@@ -1,4 +1,6 @@
 import 'package:bellma/providers/connection_status_provider.dart';
+import 'package:bellma/screens/screens.dart';
+import 'package:bellma/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:bellma/ui/ui.dart';
@@ -10,6 +12,7 @@ class LoginFormWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final loginForm = Provider.of<LoginFormProvider>(context);
     final connectionP = Provider.of<ConnectionStatusProvider>(context);
+    final authService = Provider.of<AuthService>(context, listen: false);
 
     return Container(
       // El form tiene una referencia al estado de sus widgets internos
@@ -117,11 +120,16 @@ class LoginFormWidget extends StatelessWidget {
 
                           loginForm.isLoadingSet = true;
 
-                          await Future.delayed(Duration(seconds: 5));
+                          final String? errorMessage = await authService.login(
+                              loginForm.email, loginForm.password);
 
-                          loginForm.isLoadingSet = false;
-                          // Navigator.pushReplacementNamed(
-                          //     context, HomeScreen.routeName);
+                          if (errorMessage == null) {
+                            Navigator.pushReplacementNamed(
+                                context, HomeScreen.routeName);
+                          } else {
+                            print(errorMessage);
+                            loginForm.isLoadingSet = false;
+                          }
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                               content: Text('Sin Conexión a Internet...')));

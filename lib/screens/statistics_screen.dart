@@ -1,3 +1,4 @@
+import 'package:bellma/ui/global.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:bellma/screens/screens.dart';
@@ -45,6 +46,7 @@ class StatisticsScreen extends StatelessWidget {
 class _StatisticsScreenBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final user = Global.userModel;
     final uiInputDialogProvider = Provider.of<InputDialogProvider>(context);
     int timeStudy = uiInputDialogProvider.timeStudyInputGet;
     int timeEvaluation = uiInputDialogProvider.timeEvaluationInputGet;
@@ -55,12 +57,26 @@ class _StatisticsScreenBody extends StatelessWidget {
         children: [
           CardStatisticsWidget(),
           Positioned(
-            top: 80.0,
-            left: 0,
-            right: 0,
+            top: 60.0,
+            left: 20.0,
+            right: 20.0,
             child: Container(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Text(
+                    user!.process,
+                    style: TextStyle(fontSize: 16.0, color: Colors.white),
+                  ),
+                  Container(
+                    width: double.infinity,
+                    height: 250.0,
+                    child: Card(
+                      color: whiteColor,
+                      elevation: 10.0,
+                      child: Text('GRAFICA'),
+                    ),
+                  ),
                   Text(
                     timeStudy.toString(),
                     style: TextStyle(color: Colors.white),

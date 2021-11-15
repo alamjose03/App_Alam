@@ -1,3 +1,4 @@
+import 'package:bellma/ui/global.dart';
 import 'package:flutter/material.dart';
 import 'package:bellma/responsive.dart';
 import 'package:bellma/constants/colors_constant.dart';
@@ -25,24 +26,25 @@ class _ProfileDetailBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user = Global.userModel;
     return Column(
       children: [
         ImageProfile(),
         EmailProfile(),
         _LabelData(text: 'Nombre completo'),
-        _ValueLabel(text: 'Jessica Yareli Lambert Guerrero'),
+        _ValueLabel(text: '${user!.name} ${user.flastname} ${user.mlastname}'),
         _LabelData(text: 'Dirección de correo electrónico'),
-        _ValueLabel(text: 'jessicaLambert@gmail.com'),
+        _ValueLabel(text: user.email),
         _LabelData(text: 'Proceso'),
-        _ValueLabel(text: 'Promoción horizontal'),
+        _ValueLabel(text: user.process),
         _LabelData(text: 'Teléfono'),
-        _ValueLabel(text: '99-99-99-99-99'),
+        _ValueLabel(text: user.phone),
         _LabelData(text: 'Edad'),
-        _ValueLabel(text: '34 años'),
+        _ValueLabel(text: '${user.age} años'),
         _LabelData(text: 'Dirección'),
-        _ValueLabel(text: 'Av. del Sol No 105, Col.Centro Centro'),
+        _ValueLabel(text: user.address),
         _LabelData(text: 'Código Postal - Ciudad'),
-        _ValueLabel(text: '97800 Maxcanú, Yuc.'),
+        _ValueLabel(text: '${user.zipcode}, ${user.city}'),
       ],
     );
   }
