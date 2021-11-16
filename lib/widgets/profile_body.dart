@@ -1,9 +1,11 @@
 import 'package:bellma/constants/colors_constant.dart';
 import 'package:bellma/responsive.dart';
 import 'package:bellma/screens/screens.dart';
+import 'package:bellma/services/auth_service.dart';
 import 'package:bellma/ui/global.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ProfileBodyWidget extends StatelessWidget {
   const ProfileBodyWidget({Key? key}) : super(key: key);
@@ -204,6 +206,7 @@ class ButtonOut extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authService = Provider.of<AuthService>(context, listen: false);
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 45.0, vertical: 5.0),
       width: double.infinity,
@@ -214,7 +217,10 @@ class ButtonOut extends StatelessWidget {
       ),
       child: TextButton(
         child: Text('Log Out', style: TextStyle(color: whiteColor)),
-        onPressed: () {},
+        onPressed: () {
+          authService.logout();
+          Navigator.pushReplacementNamed(context, LoginScreen.routeName);
+        },
       ),
     );
   }

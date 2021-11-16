@@ -1,6 +1,7 @@
 import 'package:bellma/providers/connection_status_provider.dart';
 import 'package:bellma/screens/screens.dart';
 import 'package:bellma/services/auth_service.dart';
+import 'package:bellma/services/services.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:bellma/ui/ui.dart';
@@ -126,8 +127,16 @@ class LoginFormWidget extends StatelessWidget {
                           if (errorMessage == null) {
                             Navigator.pushReplacementNamed(
                                 context, HomeScreen.routeName);
+                            loginForm.isLoadingSet = false;
                           } else {
-                            print(errorMessage);
+                            if (errorMessage == 'EMAIL_NOT_FOUND')
+                              NotificationsService.showSnackbar(
+                                  'Correo electrónico invalido');
+
+                            if (errorMessage == 'INVALID_PASSWORD')
+                              NotificationsService.showSnackbar(
+                                  'Contraseña invalida');
+
                             loginForm.isLoadingSet = false;
                           }
                         } else {

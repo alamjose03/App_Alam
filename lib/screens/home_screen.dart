@@ -1,3 +1,4 @@
+import 'package:bellma/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:bellma/screens/screens.dart';
 import 'package:bellma/widgets/widgets.dart';
@@ -8,6 +9,8 @@ class HomeScreen extends StatelessWidget {
   static final String routeName = '/home';
   @override
   Widget build(BuildContext context) {
+    final authService = Provider.of<AuthService>(context);
+    authService.getUser();
     return Scaffold(
       body: _HomeScreenBody(),
       bottomNavigationBar: CustomNavigatorBarWidget(),
