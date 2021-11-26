@@ -23,7 +23,6 @@ class MyApp extends StatelessWidget {
   MyApp(this.pref);
   @override
   Widget build(BuildContext context) {
-    print(pref);
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => UiProvider()),

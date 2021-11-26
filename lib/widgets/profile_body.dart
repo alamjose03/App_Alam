@@ -120,7 +120,7 @@ class _ProfileData extends StatelessWidget {
         _ListTile(
           icon: Icons.person_outline,
           text: 'Detalles de la cuenta',
-          trailing: Icon(Icons.arrow_forward_ios),
+          trailing: Icon(Icons.arrow_forward_ios, size: responsive.dp(2.5)),
           textOntap: ProfileDetailScreen.routeName,
         ),
       ],
@@ -152,7 +152,7 @@ class _NotificationData extends StatelessWidget {
         _ListTile(
           icon: Icons.notifications_none_outlined,
           text: 'Administrar recordatorios',
-          trailing: Icon(Icons.arrow_forward_ios),
+          trailing: Icon(Icons.arrow_forward_ios, size: responsive.dp(2.5)),
         ),
         _ListTile(
           icon: Icons.watch_later_outlined,
@@ -195,7 +195,7 @@ class _ListTile extends StatelessWidget {
               ? () => Navigator.pushNamed(context, this.textOntap!)
               : null,
         ),
-        Divider(indent: 74.0),
+        Divider(height: 5, indent: 74.0),
       ],
     );
   }
@@ -207,10 +207,11 @@ class ButtonOut extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthService>(context, listen: false);
+    final Responsive responsive = Responsive.of(context);
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 45.0, vertical: 5.0),
       width: double.infinity,
-      height: 50.0,
+      height: responsive.dp(5.5),
       decoration: BoxDecoration(
         color: magentaColor,
         borderRadius: BorderRadius.circular(10.0),
@@ -231,10 +232,13 @@ class _ButtonStudy extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool _isStudy = true;
-    return CupertinoSwitch(
-      value: _isStudy,
-      onChanged: (value) {},
-      activeColor: magentaColor,
+    return Transform.scale(
+      scale: 0.7,
+      child: CupertinoSwitch(
+        value: _isStudy,
+        onChanged: (value) {},
+        activeColor: magentaColor,
+      ),
     );
   }
 }
@@ -245,10 +249,13 @@ class _ButtonEvaluation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool _isEvaluation = true;
-    return CupertinoSwitch(
-      value: _isEvaluation,
-      onChanged: (value) {},
-      activeColor: magentaColor,
+    return Transform.scale(
+      scale: 0.7,
+      child: CupertinoSwitch(
+        value: _isEvaluation,
+        onChanged: (value) {},
+        activeColor: magentaColor,
+      ),
     );
   }
 }

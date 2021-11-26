@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:bellma/models/user_model.dart';
 import 'package:bellma/ui/global.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -11,6 +12,7 @@ class AuthService extends ChangeNotifier {
   final String _baseUrl = 'identitytoolkit.googleapis.com';
   final String _firebaseToken = 'AIzaSyB2Nw34Rpc7ZhgOveOGgilLhtUR6A-lPko';
   final _db = FirebaseFirestore.instance;
+  final _auth = FirebaseAuth.instance;
 
   Future<String?> login(String email, String password) async {
     final Map<String, dynamic> authData = {
@@ -60,6 +62,12 @@ class AuthService extends ChangeNotifier {
     final prefs = await SharedPreferences.getInstance();
     Map<String, dynamic> userMap = json.decode(prefs.getString('user')!);
     Global.userModel = UserModel.fromJson(userMap);
+  }
+
+  // Recuperar contraseña olvidada
+  Future forgotPassword(String email, BuildContext context) async {
+    await _auth.sendPasswordResetEmail(email: email);
+    Navigator.pop(context);
   }
 
   // Eliminar token del storage

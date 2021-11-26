@@ -88,7 +88,9 @@ class LoginFormWidget extends StatelessWidget {
                     ),
                   ],
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, ForgotPasswordScreen.routeName);
+                },
               ),
               SizedBox(height: 10.0),
               MaterialButton(

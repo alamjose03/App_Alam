@@ -11,5 +11,7 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
         NotificationScreen(),
     ProfileDetailScreen.routeName: (BuildContext context) =>
         ProfileDetailScreen(),
+    ForgotPasswordScreen.routeName: (BuildContext context) =>
+        ForgotPasswordScreen(),
   };
 }
