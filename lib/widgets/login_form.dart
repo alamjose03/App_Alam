@@ -14,6 +14,7 @@ class LoginFormWidget extends StatelessWidget {
     final loginForm = Provider.of<LoginFormProvider>(context);
     final connectionP = Provider.of<ConnectionStatusProvider>(context);
     final authService = Provider.of<AuthService>(context, listen: false);
+    final NotificationsLocal noti = NotificationsLocal();
 
     return Container(
       // El form tiene una referencia al estado de sus widgets internos
@@ -127,6 +128,7 @@ class LoginFormWidget extends StatelessWidget {
                               loginForm.email, loginForm.password);
 
                           if (errorMessage == null) {
+                            noti.scheduleDailyNotification(context);
                             Navigator.pushReplacementNamed(
                                 context, HomeScreen.routeName);
                             loginForm.isLoadingSet = false;

@@ -153,6 +153,7 @@ class _NotificationData extends StatelessWidget {
           icon: Icons.notifications_none_outlined,
           text: 'Administrar recordatorios',
           trailing: Icon(Icons.arrow_forward_ios, size: responsive.dp(2.5)),
+          textOntap: NotificationManageScreen.routeName,
         ),
         _ListTile(
           icon: Icons.watch_later_outlined,

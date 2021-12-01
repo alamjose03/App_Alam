@@ -1,7 +1,9 @@
 import 'package:bellma/providers/connection_status_provider.dart';
+import 'package:bellma/providers/time_provider.dart';
 import 'package:bellma/screens/login_screen.dart';
 import 'package:bellma/services/auth_service.dart';
 import 'package:bellma/services/services.dart';
+import 'package:bellma/ui/ui.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -20,9 +22,11 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   final SharedPreferences pref;
+  final NotificationsLocal noti = new NotificationsLocal();
   MyApp(this.pref);
   @override
   Widget build(BuildContext context) {
+    noti.init();
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => UiProvider()),
@@ -30,6 +34,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => LoginFormProvider()),
         ChangeNotifierProvider(create: (_) => ConnectionStatusProvider()),
         ChangeNotifierProvider(create: (_) => AuthService()),
+        ChangeNotifierProvider(create: (_) => TimeUserProvider()),
       ],
       child: MaterialApp(
         title: 'BellMa App',
