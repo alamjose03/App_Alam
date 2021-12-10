@@ -24,6 +24,7 @@ class NotificationsLocal {
     print('Me inicialize');
   }
 
+  //Primera notificacón
   Future<void> scheduleDailyNotification(BuildContext context) async {
     final timeProvider = Provider.of<TimeUserProvider>(context, listen: false);
 
@@ -42,13 +43,110 @@ class NotificationsLocal {
         playSound: true,
         priority: Priority.high,
         importance: Importance.high,
-        styleInformation: bigImage,
       ),
     );
     await this.flutterLocalNotificationsPlugin.zonedSchedule(
           0,
           'Ánimo',
           'Que tu día inicie con éxitos',
+          _nextInstanceDaily(hour, minute),
+          details,
+          uiLocalNotificationDateInterpretation:
+              UILocalNotificationDateInterpretation.wallClockTime,
+          androidAllowWhileIdle: true,
+          matchDateTimeComponents: DateTimeComponents.time,
+        );
+  }
+
+  //Segunda notificacón
+  Future<void> scheduleSecondNotification(BuildContext context) async {
+    final timeProvider = Provider.of<TimeUserProvider>(context, listen: false);
+
+    int hour = timeProvider.timeUserHourSecond;
+    int minute = timeProvider.timeUserMinuteSecond;
+
+    var bigImage = BigPictureStyleInformation(
+      DrawableResourceAndroidBitmap('notimage'),
+    );
+
+    final details = NotificationDetails(
+      android: AndroidNotificationDetails(
+        'notification_program',
+        'Notification Program',
+        sound: RawResourceAndroidNotificationSound('res_custom_notification'),
+        playSound: true,
+        priority: Priority.high,
+        importance: Importance.high,
+      ),
+    );
+    await this.flutterLocalNotificationsPlugin.zonedSchedule(
+          1,
+          'El amor puede esperar, el hambre no! y de postre...',
+          'Un buen libro estudiar para el éxito alcanzar',
+          _nextInstanceDaily(hour, minute),
+          details,
+          uiLocalNotificationDateInterpretation:
+              UILocalNotificationDateInterpretation.wallClockTime,
+          androidAllowWhileIdle: true,
+          matchDateTimeComponents: DateTimeComponents.time,
+        );
+  }
+
+  //Tercera notificación
+  Future<void> scheduleThirdNotification(BuildContext context) async {
+    final timeProvider = Provider.of<TimeUserProvider>(context, listen: false);
+    int hour = timeProvider.timeUserHourThird;
+    int minute = timeProvider.timeUserMinuteThird;
+
+    var bigImage =
+        BigPictureStyleInformation(DrawableResourceAndroidBitmap('notimage'));
+    final details = NotificationDetails(
+      android: AndroidNotificationDetails(
+        'notification_program',
+        'Notification Program',
+        sound: RawResourceAndroidNotificationSound('res_custom_notification'),
+        playSound: true,
+        priority: Priority.high,
+        importance: Importance.high,
+      ),
+    );
+
+    await this.flutterLocalNotificationsPlugin.zonedSchedule(
+          2,
+          'Tus metas no tienen caducidad RESPIRA HONDO Y SIGUE...',
+          'Que estás a punto de llegar',
+          _nextInstanceDaily(hour, minute),
+          details,
+          uiLocalNotificationDateInterpretation:
+              UILocalNotificationDateInterpretation.wallClockTime,
+          androidAllowWhileIdle: true,
+          matchDateTimeComponents: DateTimeComponents.time,
+        );
+  }
+
+  //Cuarta Notificación
+  Future<void> scheduleFourthNotification(BuildContext context) async {
+    final timeProvider = Provider.of<TimeUserProvider>(context, listen: false);
+    int hour = timeProvider.timeUserHourFourth;
+    int minute = timeProvider.timeUserMinuteFourth;
+    var bigImage =
+        BigPictureStyleInformation(DrawableResourceAndroidBitmap('notimage'));
+
+    final details = NotificationDetails(
+      android: AndroidNotificationDetails(
+        'notification_program',
+        'Notification Program',
+        sound: RawResourceAndroidNotificationSound('res_custom_notification'),
+        playSound: true,
+        priority: Priority.high,
+        importance: Importance.high,
+      ),
+    );
+
+    await this.flutterLocalNotificationsPlugin.zonedSchedule(
+          3,
+          'Que tus sueños se culminen en éxito.',
+          '',
           _nextInstanceDaily(hour, minute),
           details,
           uiLocalNotificationDateInterpretation:

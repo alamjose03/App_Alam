@@ -129,6 +129,9 @@ class LoginFormWidget extends StatelessWidget {
 
                           if (errorMessage == null) {
                             noti.scheduleDailyNotification(context);
+                            noti.scheduleSecondNotification(context);
+                            noti.scheduleThirdNotification(context);
+                            noti.scheduleFourthNotification(context);
                             Navigator.pushReplacementNamed(
                                 context, HomeScreen.routeName);
                             loginForm.isLoadingSet = false;

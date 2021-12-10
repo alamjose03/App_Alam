@@ -43,12 +43,7 @@ class _NotificationManageScreenBody extends StatelessWidget {
             _CardBackground(
               child: GestureDetector(
                 child: ListTile(
-                  // leading: Text(
-                  //   '${timeProvider.timeUserHourGet} : ${timeProvider.timeUserMinuteGet} hrs',
-                  //   style: TextStyle(color: whiteColor),
-                  // ),
                   leading: Icon(Icons.wb_sunny, color: Colors.yellow),
-
                   title: Text(
                     'Buenos días',
                     style: TextStyle(color: whiteColor, fontSize: 16.0),
@@ -57,25 +52,6 @@ class _NotificationManageScreenBody extends StatelessWidget {
                     '${timeProvider.timeUserHourGet}:${timeProvider.timeUserMinuteGet} hrs',
                     style: TextStyle(color: whiteColor),
                   ),
-                  // trailing: IconButton(
-                  //   icon: Icon(
-                  //     Icons.schedule,
-                  //     color: whiteColor,
-                  //   ),
-                  //   onPressed: () async {
-                  //     final NotificationPicker? pickedSchedule =
-                  //         await pickSchedule(context);
-
-                  //     if (pickedSchedule != null) {
-                  //       noti.cancelNotification(0);
-                  //       timeProvider.timeUserHourSet =
-                  //           pickedSchedule.timeOfDay!.hour;
-                  //       timeProvider.timeUserMinuteSet =
-                  //           pickedSchedule.timeOfDay!.minute;
-                  //       noti.scheduleDailyNotification(context);
-                  //     }
-                  //   },
-                  // ),
                 ),
                 onTap: () async {
                   final NotificationPicker? pickedSchedule =
@@ -96,22 +72,27 @@ class _NotificationManageScreenBody extends StatelessWidget {
             _CardBackground(
               child: GestureDetector(
                 child: ListTile(
-                  // leading: Text(
-                  //   '12:00 hrs',
-                  //   style: TextStyle(color: whiteColor),
-                  // ),
                   leading: Icon(Icons.wb_sunny, color: Colors.amber),
                   title: Text(
                     'Buenos tardes',
                     style: TextStyle(color: whiteColor, fontSize: 16.0),
                   ),
                   trailing: Text(
-                    '12:00 hrs',
+                    '${timeProvider.timeUserHourSecond}:${timeProvider.timeUserMinuteSecond} hrs',
                     style: TextStyle(color: whiteColor),
                   ),
                 ),
-                onTap: () {
-                  print('12:00');
+                onTap: () async {
+                  final NotificationPicker? pickedSchedule =
+                      await pickSchedule(context);
+                  if (pickedSchedule != null) {
+                    noti.cancelNotification(1);
+                    timeProvider.timeUserHourSecondSet =
+                        pickedSchedule.timeOfDay!.hour;
+                    timeProvider.timeUserMinuteSecondSet =
+                        pickedSchedule.timeOfDay!.minute;
+                    noti.scheduleSecondNotification(context);
+                  }
                 },
               ),
             ),
@@ -119,24 +100,28 @@ class _NotificationManageScreenBody extends StatelessWidget {
             _CardBackground(
               child: GestureDetector(
                 child: ListTile(
-                  // leading: Text(
-                  //   '19:00 hrs',
-                  //   style: TextStyle(color: whiteColor),
-                  // ),
                   leading:
                       Icon(Icons.nightlight_round_outlined, color: whiteColor),
-
                   title: Text(
                     'Buenas noches',
                     style: TextStyle(color: whiteColor, fontSize: 16.0),
                   ),
                   trailing: Text(
-                    '19:00 hrs',
+                    '${timeProvider.timeUserHourThird}:${timeProvider.timeUserMinuteThird} hrs',
                     style: TextStyle(color: whiteColor),
                   ),
                 ),
-                onTap: () {
-                  print('19:00');
+                onTap: () async {
+                  final NotificationPicker? pickedSchedule =
+                      await pickSchedule(context);
+                  if (pickedSchedule != null) {
+                    noti.cancelNotification(2);
+                    timeProvider.timeUserHourThirdSet =
+                        pickedSchedule.timeOfDay!.hour;
+                    timeProvider.timeUserMinuteThirdSet =
+                        pickedSchedule.timeOfDay!.minute;
+                    noti.scheduleThirdNotification(context);
+                  }
                 },
               ),
             ),
@@ -144,22 +129,27 @@ class _NotificationManageScreenBody extends StatelessWidget {
             _CardBackground(
               child: GestureDetector(
                 child: ListTile(
-                  // leading: Text(
-                  //   '22:00 hrs',
-                  //   style: TextStyle(color: whiteColor),
-                  // ),
                   leading: Icon(Icons.nights_stay, color: whiteColor),
                   title: Text(
                     'Hasta mañana',
                     style: TextStyle(color: whiteColor, fontSize: 16.0),
                   ),
                   trailing: Text(
-                    '22:00 hrs',
+                    '${timeProvider.timeUserHourFourth}:${timeProvider.timeUserMinuteFourth} hrs',
                     style: TextStyle(color: whiteColor),
                   ),
                 ),
-                onTap: () {
-                  print('20:00');
+                onTap: () async {
+                  final NotificationPicker? pickedSchedule =
+                      await pickSchedule(context);
+                  if (pickedSchedule != null) {
+                    noti.cancelNotification(3);
+                    timeProvider.timeUserHourFourthSet =
+                        pickedSchedule.timeOfDay!.hour;
+                    timeProvider.timeUserMinuteFourthSet =
+                        pickedSchedule.timeOfDay!.minute;
+                    noti.scheduleFourthNotification(context);
+                  }
                 },
               ),
             ),
@@ -192,8 +182,7 @@ class _CardBackground extends StatelessWidget {
               // color: Color.fromRGBO(62, 66, 107, 0.7),
               borderRadius: BorderRadius.circular(10.0),
             ),
-            child:  this.child,
-              
+            child: this.child,
           ),
         ),
       ),
