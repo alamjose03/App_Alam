@@ -6,8 +6,69 @@ import 'package:bellma/ui/ui.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class NotificationManageScreen extends StatelessWidget {
+class NotificationManageScreen extends StatefulWidget {
   static final String routeName = '/notificationManage';
+
+  @override
+  _NotificationManageScreenState createState() =>
+      _NotificationManageScreenState();
+}
+
+class _NotificationManageScreenState extends State<NotificationManageScreen> {
+  final shared = SharedPreferencesTimeUI();
+  int? primerH;
+  int? primerM;
+  int? segundoH;
+  int? segundoM;
+  int? terceroH;
+  int? terceroM;
+  int? cuartoH;
+  int? cuartoM;
+
+  @override
+  void initState() {
+    super.initState();
+    shared.getTimeNotification('primeroh').then((value) {
+      setState(() {
+        primerH = value;
+      });
+    });
+    shared.getTimeNotification('primerom').then((value) {
+      setState(() {
+        primerM = value;
+      });
+    });
+    shared.getTimeNotification('segundoh').then((value) {
+      setState(() {
+        segundoH = value;
+      });
+    });
+    shared.getTimeNotification('segundom').then((value) {
+      setState(() {
+        segundoM = value;
+      });
+    });
+    shared.getTimeNotification('terceroh').then((value) {
+      setState(() {
+        terceroH = value;
+      });
+    });
+    shared.getTimeNotification('tercerom').then((value) {
+      setState(() {
+        terceroM = value;
+      });
+    });
+    shared.getTimeNotification('cuartah').then((value) {
+      setState(() {
+        cuartoH = value;
+      });
+    });
+    shared.getTimeNotification('cuartam').then((value) {
+      setState(() {
+        cuartoM = value;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,13 +81,40 @@ class NotificationManageScreen extends StatelessWidget {
         centerTitle: true,
         iconTheme: IconThemeData(color: blackColor),
       ),
-      body: _NotificationManageScreenBody(),
+      body: _NotificationManageScreenBody(
+        primeroh: primerH,
+        primerM: primerM,
+        segundoH: segundoH,
+        segundoM: segundoM,
+        terceroH: terceroH,
+        terceroM: terceroM,
+        cuartoH: cuartoH,
+        cuartoM: cuartoM,
+      ),
     );
   }
 }
 
 class _NotificationManageScreenBody extends StatelessWidget {
-  const _NotificationManageScreenBody({Key? key}) : super(key: key);
+  final int? primeroh;
+  final int? primerM;
+  final int? segundoH;
+  final int? segundoM;
+  final int? terceroH;
+  final int? terceroM;
+  final int? cuartoH;
+  final int? cuartoM;
+  _NotificationManageScreenBody({
+    Key? key,
+    required this.primeroh,
+    required this.primerM,
+    required this.segundoH,
+    required this.segundoM,
+    required this.terceroH,
+    required this.terceroM,
+    required this.cuartoH,
+    required this.cuartoM,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final timeProvider = Provider.of<TimeUserProvider>(context);
@@ -49,7 +137,7 @@ class _NotificationManageScreenBody extends StatelessWidget {
                     style: TextStyle(color: whiteColor, fontSize: 16.0),
                   ),
                   trailing: Text(
-                    '${timeProvider.timeUserHourGet}:${timeProvider.timeUserMinuteGet} hrs',
+                    '$primeroh: $primerM hrs',
                     style: TextStyle(color: whiteColor),
                   ),
                 ),
@@ -78,7 +166,7 @@ class _NotificationManageScreenBody extends StatelessWidget {
                     style: TextStyle(color: whiteColor, fontSize: 16.0),
                   ),
                   trailing: Text(
-                    '${timeProvider.timeUserHourSecond}:${timeProvider.timeUserMinuteSecond} hrs',
+                    '$segundoH:$segundoM hrs',
                     style: TextStyle(color: whiteColor),
                   ),
                 ),
@@ -107,7 +195,7 @@ class _NotificationManageScreenBody extends StatelessWidget {
                     style: TextStyle(color: whiteColor, fontSize: 16.0),
                   ),
                   trailing: Text(
-                    '${timeProvider.timeUserHourThird}:${timeProvider.timeUserMinuteThird} hrs',
+                    '$terceroH:$terceroM hrs',
                     style: TextStyle(color: whiteColor),
                   ),
                 ),
@@ -135,7 +223,7 @@ class _NotificationManageScreenBody extends StatelessWidget {
                     style: TextStyle(color: whiteColor, fontSize: 16.0),
                   ),
                   trailing: Text(
-                    '${timeProvider.timeUserHourFourth}:${timeProvider.timeUserMinuteFourth} hrs',
+                    '$cuartoH:$cuartoM hrs',
                     style: TextStyle(color: whiteColor),
                   ),
                 ),

@@ -3,6 +3,7 @@ import 'package:bellma/responsive.dart';
 import 'package:bellma/screens/screens.dart';
 import 'package:bellma/services/auth_service.dart';
 import 'package:bellma/ui/global.dart';
+import 'package:bellma/ui/shared_preferences_time.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -209,6 +210,7 @@ class ButtonOut extends StatelessWidget {
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthService>(context, listen: false);
     final Responsive responsive = Responsive.of(context);
+    final shared = SharedPreferencesTimeUI();
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 45.0, vertical: 5.0),
       width: double.infinity,
@@ -222,6 +224,14 @@ class ButtonOut extends StatelessWidget {
         onPressed: () {
           authService.logout();
           Navigator.pushReplacementNamed(context, LoginScreen.routeName);
+          shared.removeTimeNotification('primeroh');
+          shared.removeTimeNotification('primerom');
+          shared.removeTimeNotification('segundoh');
+          shared.removeTimeNotification('segundom');
+          shared.removeTimeNotification('terceroh');
+          shared.removeTimeNotification('tercerom');
+          shared.removeTimeNotification('cuartah');
+          shared.removeTimeNotification('cuartam');
         },
       ),
     );
